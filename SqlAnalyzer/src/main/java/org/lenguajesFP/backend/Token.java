@@ -4,11 +4,11 @@ import java.awt.Color;
 import org.lenguajesFP.backend.enums.Kind;
 
 public class Token {
-    private String lexeme;
-    private Kind name;
+    protected String lexeme;
+    protected Kind name;
     protected Color color;
-    private int row;
-    private int column;
+    protected int row;
+    protected int column;
 
     @Override
     public String toString() {

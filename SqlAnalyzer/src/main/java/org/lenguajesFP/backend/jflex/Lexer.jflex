@@ -35,7 +35,7 @@ import org.lenguajesFP.backend.enums.Kind;
 %standalone
 
 // Expresiones Regulares
-CREATE = ("CREATE"|"DATABASE"|"TABLE"|"KEY"|"NULL"|"PRIMARY"|"UNIQUE"|"FOREIGN"|"REFERENCES"|"ALTER"|"ADD"|"COLUMN"|"TYPE"|"DROP"|"CONSTRAINT"|"IF"|"EXIST"|"CASCADE"|"ON"|"DELETE"|"SET"|"UPDATE"|"INSERT"|"INTO"|"VALUES"|"SELECT"|"FROM"|"WHERE"|"AS"|"GROUP"|"ORDER"|"BY"|"ASC"|"DESC"|"LIMIT"|"JOIN")
+CREATE = ("CREATE"|"DATABASE"|"TABLE"|"KEY"|"NULL"|"PRIMARY"|"UNIQUE"|"FOREIGN"|"REFERENCES"|"ALTER"|"ADD"|"COLUMN"|"TYPE"|"DROP"|"CONSTRAINT"|"IF"|"EXISTS"|"CASCADE"|"ON"|"DELETE"|"SET"|"UPDATE"|"INSERT"|"INTO"|"VALUES"|"SELECT"|"FROM"|"WHERE"|"AS"|"GROUP"|"ORDER"|"BY"|"ASC"|"DESC"|"LIMIT"|"JOIN")
 TIPO_DE_DATO = ("INTEGER"|"BIGINT"|"VARCHAR"|"DECIMAL"|"DATE"|"TEXT"|"BOOLEAN"|"SERIAL")
 BOOLEANO = ("TRUE"|"FALSE")
 FUN_AGREG = ("SUM"|"AVG"|"COUNT"|"MAX"|"MIN")
@@ -69,5 +69,5 @@ COMENTARIO = "- -"[^\n]*\n
 {COMENTARIO}                      { addTokenList( new Token( yytext(), Kind.Comentario, Color.GRAY, yyline, yycolumn));}
 {ESPACIOS}                        { addTokenList( new Token( yytext(), Kind.Espacio, Color.BLACK, yyline, yycolumn));}
 //ERRORES
-[a-zA-Z]+                          { addTokenList( new ErrorToken( yytext(), Color.BLACK, yyline, yycolumn, "Token invalido"));}
+[a-zA-Z]+                         { addTokenList( new ErrorToken( yytext(), Color.BLACK, yyline, yycolumn, "Token invalido"));}
 .                                 { addTokenList( new ErrorToken( yytext(), Color.BLACK, yyline, yycolumn, "Caracter invalido"));}
