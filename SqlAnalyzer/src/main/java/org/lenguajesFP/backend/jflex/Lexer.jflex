@@ -41,7 +41,7 @@ BOOLEANO = ("TRUE"|"FALSE")
 FUN_AGREG = ("SUM"|"AVG"|"COUNT"|"MAX"|"MIN")
 LOGICOS = ("AND"|"OR"|"NOT")
 SIGNOS = ("("|")"|","|";"|"."|"=")
-ARITMETICOS = ("+"|"-"|"*"|"/s")
+ARITMETICOS = ("+"|"-"|"*"|"/")
 RELACIONALES = ("<"|">"|"<="|">=")
 ENTERO = [0-9]+
 DECIMAL = [0-9]+"."[0-9]+

@@ -6,8 +6,12 @@ import org.lenguajesFP.backend.enums.Kind;
 
 public class KeyStructureAnalyze extends SyntaxAnalyzer {
 
-    public KeyStructureAnalyze(Data data) {
+    private final SyntaxAnalyzer endAnalyzer;
+
+
+    public KeyStructureAnalyze(Data data, SyntaxAnalyzer endAnalyzer) {
         super(data);
+        this.endAnalyzer = endAnalyzer;
     }
 
     @Override
@@ -68,26 +72,11 @@ public class KeyStructureAnalyze extends SyntaxAnalyzer {
     private void identifierBetween(){
         if (data.betweenParenthesis(Kind.Identificador)){
             data.next();
-            finalParenthesis();
+            endAnalyzer.analyze();
         } else {
             data.addSyntaxError("Se esperaba un token Identificador entre parentesis");
         }
     }
 
-    private void finalParenthesis(){
-        if (data.validateLexeme(")")){
-            data.next();
-            finalStatus();
-        } else{
-            data.addSyntaxError("Se esperaba un token )");
-        }
-    }
 
-    private void finalStatus(){
-        if (data.validateLexeme(";")){
-            data.increaseCreates();
-        } else{
-            data.addSyntaxError("Se esperaba un token ; ");
-        }
-    }
 }

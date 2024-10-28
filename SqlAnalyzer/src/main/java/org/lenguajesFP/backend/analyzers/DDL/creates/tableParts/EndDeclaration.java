@@ -2,38 +2,32 @@ package org.lenguajesFP.backend.analyzers.DDL.creates.tableParts;
 
 import org.lenguajesFP.backend.Data;
 import org.lenguajesFP.backend.analyzers.SyntaxAnalyzer;
-import org.lenguajesFP.backend.tables.Column;
-import org.lenguajesFP.backend.tables.Table;
 
 public class EndDeclaration extends SyntaxAnalyzer {
 
     private final ContentTableAnalyzer contentTableAnalyzer;
-    private final Table table;
-    private final Column column;
 
-    public EndDeclaration(Data data, Table table, Column column) {
+    public EndDeclaration(Data data) {
         super(data);
-        this.table = table;
-        this.column = column;
-        contentTableAnalyzer = new ContentTableAnalyzer(data, table);
+        contentTableAnalyzer = new ContentTableAnalyzer(data);
     }
 
     @Override
     public void analyze() {
         if (data.validateLexeme("PRIMARY")){
-            column.addPart(data.currentToken());
+            data.addPartColumn();
             data.next();
             primaryStatus();
         } else if (data.validateLexeme("NOT")){
-            column.addPart(data.currentToken());
+            data.addPartColumn();
             data.next();
             notStatus();
         } else if (data.validateLexeme("UNIQUE")){
-            column.addPart(data.currentToken());
+            data.addPartColumn();
             data.next();
             quoteStatus();
         } else if (data.validateLexeme(",")){
-            table.addColumn(column);
+            data.saveColumn();
             quoteStatus();
         } else if (data.validateLexeme(")")){
             data.next();
@@ -45,7 +39,7 @@ public class EndDeclaration extends SyntaxAnalyzer {
 
     private void primaryStatus(){
         if (data.validateLexeme("KEY")){
-            column.addPart(data.currentToken());
+            data.addPartColumn();
             data.next();
             quoteStatus();
         } else {
@@ -55,7 +49,7 @@ public class EndDeclaration extends SyntaxAnalyzer {
 
     private void notStatus(){
         if (data.validateLexeme("NULL")){
-            column.addPart(data.currentToken());
+            data.addPartColumn();
             data.next();
             quoteStatus();
         } else {
@@ -65,6 +59,7 @@ public class EndDeclaration extends SyntaxAnalyzer {
 
     private void quoteStatus(){
         if (data.validateLexeme(",")){
+            data.saveColumn();
             data.next();
             finalStatus();
         } else if (data.validateLexeme(")")){
@@ -76,14 +71,14 @@ public class EndDeclaration extends SyntaxAnalyzer {
     }
 
     private void finalStatus(){
-        table.addColumn(column);
+        data.saveColumn();
         contentTableAnalyzer.analyze();
     }
 
     private void endTable(){
         if (data.validateLexeme(";")){
-            table.addColumn(column);
-            data.addTable(table);
+            data.saveColumn();
+            data.saveTable();
             data.increaseCreates();
         } else {
             data.addSyntaxError("Se esperaba un token: ;");

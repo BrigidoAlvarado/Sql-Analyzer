@@ -9,10 +9,13 @@ public class AltersAnalyzer extends SyntaxAnalyzer {
 
     public static final String KEYWORD = "ALTER";
 
-    private final ModifiedTable modifiedTable = new ModifiedTable();
+    private final AlterAlter alterAlter;
+    private final AlterAdd alterAdd;
 
     public AltersAnalyzer(Data data) {
         super(data);
+        this.alterAlter = new AlterAlter(data);
+        this.alterAdd = new AlterAdd(data);
     }
 
     @Override
@@ -21,28 +24,32 @@ public class AltersAnalyzer extends SyntaxAnalyzer {
             data.next();
             identifierStatus();
         } else {
-            errorStatus("Se esperaba un toke TABLE");
+            errorStatus("Se esperaba un token TABLE");
         }
     }
 
     private void identifierStatus(){
         if (data.validateName(Kind.Identificador)){
-            modifiedTable.setName(data.currentToken());
+            data.setModifiedTableName();
             data.next();
-            addOrDropStatus();
-        } else {
+            alterTypeStatus();
+        }  else {
             errorStatus("Se esperaba un Identificador");
         }
     }
 
-    private void addOrDropStatus(){
-        if (data.validateLexeme("AD")){
+    private void alterTypeStatus(){
+        if (data.validateLexeme("ADD")){
             data.next();
+            alterAdd.analyze();
         } else if (data.validateLexeme("DROP")) {
             data.next();
             columnStatus();
+        } else if (data.validateLexeme("ALTER")) {
+            data.next();
+            alterAlter.analyze();
         } else {
-            errorStatus("Se esperaba un token AD o uno DROP");
+            errorStatus("Secuencia de token invalido");
         }
     }
 
@@ -57,7 +64,7 @@ public class AltersAnalyzer extends SyntaxAnalyzer {
 
     private void columnNameStatus(){
         if (data.validateName(Kind.Identificador)){
-            modifiedTable.setColumn(data.currentToken());
+            data.setModifiedTableColumn();
             data.next();
             finalStatus();
         } else {
@@ -67,7 +74,7 @@ public class AltersAnalyzer extends SyntaxAnalyzer {
 
     private void finalStatus(){
         if (data.validateLexeme(";")){
-            data.addModifiedTables(modifiedTable);
+            data.saveModifiedTable();
             data.increaseAlters();
         } else {
             errorStatus("Se esperaba un token ;");

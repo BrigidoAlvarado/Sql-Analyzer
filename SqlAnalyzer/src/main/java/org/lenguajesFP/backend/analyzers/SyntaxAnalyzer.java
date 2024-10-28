@@ -11,11 +11,11 @@ public abstract class SyntaxAnalyzer {
 
     public abstract void analyze();
 
-    protected Data getData() {
-        return data;
-    }
-
     protected void errorStatus(String description) {
         data.addSyntaxError(description);
+    }
+
+    public Data getData(){
+        return data;
     }
 }

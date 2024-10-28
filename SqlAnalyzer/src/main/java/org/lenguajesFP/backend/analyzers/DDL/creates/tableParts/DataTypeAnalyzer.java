@@ -3,31 +3,31 @@ package org.lenguajesFP.backend.analyzers.DDL.creates.tableParts;
 import org.lenguajesFP.backend.Data;
 import org.lenguajesFP.backend.analyzers.SyntaxAnalyzer;
 import org.lenguajesFP.backend.enums.Kind;
-import org.lenguajesFP.backend.tables.Column;
-import org.lenguajesFP.backend.tables.Table;
 
 public class DataTypeAnalyzer extends SyntaxAnalyzer {
 
-    private final Table table;
-    private final Column column;
+    private final SyntaxAnalyzer finalAnalyzer;
 
-    public DataTypeAnalyzer(Data data, Table table, Column column) {
+    private boolean adColumn = false;
+
+    public DataTypeAnalyzer(Data data, SyntaxAnalyzer finalAnalyzer, boolean adColumn) {
         super(data);
-        this.table = table;
-        this.column = column;
+        this.adColumn = adColumn;
+        this.finalAnalyzer = finalAnalyzer;
     }
 
     @Override
     public void analyze() {
         if (data.validateLexeme("VARCHAR") ){
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             openParenthesis();
         } else if (data.validateLexeme("DECIMAL")) {
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             openPar2();
         } else if (data.validateName(Kind.TIPO_DE_DATO)) {
+            adPart();
             data.next();
             finalStatus();
         } else{
@@ -37,7 +37,7 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
 
     private void openParenthesis(){
         if (data.validateLexeme("(")){
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             intStatus();
         } else {
@@ -47,7 +47,7 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
 
     private void intStatus(){
         if (data.validateName(Kind.Entero)){
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             endParenthesis();
         } else {
@@ -57,7 +57,7 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
 
     private void endParenthesis(){
         if (data.validateLexeme(")")){
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             finalStatus();
         } else {
@@ -67,7 +67,7 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
 
     private void openPar2(){
         if (data.validateLexeme("(")){
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             int1();
         } else{
@@ -77,7 +77,7 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
 
     private void int1(){
         if (data.validateName(Kind.Entero)){
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             quoteStatus();
         } else {
@@ -87,7 +87,7 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
 
     private void quoteStatus(){
         if (data.validateLexeme(",")){
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             int2();
         }else{
@@ -97,7 +97,7 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
 
     private void int2(){
         if (data.validateName(Kind.Entero)){
-            column.addPart(data.currentToken());
+            adPart();
             data.next();
             endParenthesis();
         } else {
@@ -106,7 +106,12 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
     }
 
     private void finalStatus(){
-        EndDeclaration endDeclaration = new EndDeclaration(data,table,column);
-        endDeclaration.analyze();
+        finalAnalyzer.analyze();
+    }
+
+    private void adPart(){
+        if (adColumn){
+            data.addPartColumn();
+        }
     }
 }

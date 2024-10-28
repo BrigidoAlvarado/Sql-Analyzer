@@ -12,6 +12,10 @@ public class Column {
         parts.add(token);
     }
 
+    public void reset(){
+        parts.clear();
+    }
+
     public List<Token> getParts() {
         return parts;
     }

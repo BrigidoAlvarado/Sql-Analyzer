@@ -18,6 +18,7 @@ public class CreateAnalyzer extends SyntaxAnalyzer {
     @Override
     public void analyze() {
         if (data.validateLexeme(TableAnalyzer.KEYWORD)){
+            data.setTableKey();
             data.next();
             tableAnalyzer.analyze();
         } else if (data.validateLexeme(DataBaseAnalyzer.KEYWORD)){

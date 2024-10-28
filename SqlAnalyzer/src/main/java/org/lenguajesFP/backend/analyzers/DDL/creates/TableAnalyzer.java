@@ -2,27 +2,26 @@ package org.lenguajesFP.backend.analyzers.DDL.creates;
 
 import org.lenguajesFP.backend.Data;
 import org.lenguajesFP.backend.analyzers.DDL.creates.tableParts.DataTypeAnalyzer;
+import org.lenguajesFP.backend.analyzers.DDL.creates.tableParts.EndDeclaration;
 import org.lenguajesFP.backend.analyzers.SyntaxAnalyzer;
 import org.lenguajesFP.backend.enums.Kind;
 import org.lenguajesFP.backend.tables.Column;
 import org.lenguajesFP.backend.tables.Table;
 
 public class TableAnalyzer extends SyntaxAnalyzer {
-    private final Table table = new Table();
-    private final Column column = new Column();
     private final DataTypeAnalyzer dataTypeAnalyzer;
 
     public static final String KEYWORD = "TABLE";
 
     public TableAnalyzer(Data data) {
         super(data);
-        dataTypeAnalyzer = new DataTypeAnalyzer(data, table, column);
+        dataTypeAnalyzer = new DataTypeAnalyzer(data, new EndDeclaration(data), true );
     }
 
     @Override
     public void analyze() {
         if (data.validateName(Kind.Identificador)) {
-            table.setName(data.currentToken());
+            data.setTableName();
             data.next();
             openParenthesisStatus();
         } else {
@@ -41,7 +40,7 @@ public class TableAnalyzer extends SyntaxAnalyzer {
 
     private void identifierStatus() {
         if (data.validateName(Kind.Identificador)) {
-            column.addPart(data.currentToken());
+            data.newColumnAndPart();
             data.next();
             dataTypeAnalyzer.analyze();
         } else {

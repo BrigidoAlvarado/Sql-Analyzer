@@ -6,9 +6,13 @@ import org.lenguajesFP.backend.analyzers.adds.AddAnalyzer;
 import org.lenguajesFP.backend.analyzers.DDL.modifiers.alters.AltersAnalyzer;
 import org.lenguajesFP.backend.analyzers.DDL.creates.CreateAnalyzer;
 import org.lenguajesFP.backend.analyzers.deletes.DeleteAnalyzer;
-import org.lenguajesFP.backend.analyzers.inserts.InsertAnalyzer;
-import org.lenguajesFP.backend.analyzers.selects.SelectAnalyzer;
+import org.lenguajesFP.backend.analyzers.DML.inserts.InsertAnalyzer;
+import org.lenguajesFP.backend.analyzers.DML.selects.SelectAnalyzer;
 import org.lenguajesFP.backend.analyzers.updates.UpdateAnalyzer;
+import org.lenguajesFP.backend.tables.ModifiedTable;
+import org.lenguajesFP.backend.tables.Table;
+
+import java.util.List;
 
 public class StateAnalyzer extends SyntaxAnalyzer {
     private final AddAnalyzer addAnalyzer;
@@ -38,6 +42,15 @@ public class StateAnalyzer extends SyntaxAnalyzer {
             validateStates();
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("El proceso ha finalizado");
+            System.out.println("tablas encontradas");
+            List<Table> tables = data.getTables();
+            for (Table table : tables) {
+                System.out.println(table);
+            }
+            List<ModifiedTable> modifiedTables = data.getModifiedTables();
+            for (ModifiedTable modifiedTable : modifiedTables) {
+                System.out.println(modifiedTable);
+            }
             e.printStackTrace();
         }
     }
@@ -49,6 +62,7 @@ public class StateAnalyzer extends SyntaxAnalyzer {
             data.next();
             validateStates();
         } else if (data.validateLexeme(AltersAnalyzer.KEYWORD)){
+            data.setModifiedTableKey();
             data.next();
             altersAnalyzer.analyze();
             data.next();
@@ -79,6 +93,7 @@ public class StateAnalyzer extends SyntaxAnalyzer {
             data.next();
             validateStates();
         } else if (data.validateLexeme(DropAnalyze.KEYWORD)) {
+            data.setModifiedTableKey();
             data.next();
             dropAnalyzer.analyze();
             data.next();

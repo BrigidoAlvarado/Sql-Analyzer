@@ -9,8 +9,6 @@ public class DropAnalyze extends SyntaxAnalyzer {
 
     public static final String KEYWORD = "DROP";
 
-    private final ModifiedTable modifiedTable = new ModifiedTable();
-
     public DropAnalyze(Data data) {
         super(data);
     }
@@ -45,7 +43,7 @@ public class DropAnalyze extends SyntaxAnalyzer {
 
     private void identifierStatus(){
         if (data.validateName(Kind.Identificador)){
-            modifiedTable.setName(data.currentToken());
+            data.setModifiedTableName();
             data.next();
             cascadeStatus();
         } else {
@@ -64,10 +62,11 @@ public class DropAnalyze extends SyntaxAnalyzer {
 
     private void finalStatus(){
         if (data.validateLexeme(";")){
-            data.addModifiedTables(modifiedTable);
+            data.saveModifiedTable();
             data.increaseDrops();
         } else {
             errorStatus("Se esperaba un token ;");
+
         }
     }
 }

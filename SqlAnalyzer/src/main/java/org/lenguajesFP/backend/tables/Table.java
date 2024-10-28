@@ -7,8 +7,28 @@ import java.util.List;
 
 public class Table {
 
-    protected   Token name;
     private final List<Column> columns = new ArrayList<>();
+    protected Token key;
+    protected Token name;
+
+    @Override
+    public String toString() {
+        return "nombre: "+ name +" \n columns: "+ columns;
+    }
+
+    public void reset(){
+        name = null;
+        key = null;
+        columns.clear();
+    }
+
+    public void setKey(Token token){
+        key = token;
+    }
+
+    public Token getKey(){
+        return key;
+    }
 
     public void setName(Token name) {
         this.name = name;

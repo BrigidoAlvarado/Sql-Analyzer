@@ -3,29 +3,22 @@ package org.lenguajesFP.backend.analyzers.DDL.creates.tableParts;
 import org.lenguajesFP.backend.Data;
 import org.lenguajesFP.backend.analyzers.SyntaxAnalyzer;
 import org.lenguajesFP.backend.enums.Kind;
-import org.lenguajesFP.backend.tables.Column;
-import org.lenguajesFP.backend.tables.Table;
 
 public class ContentTableAnalyzer extends SyntaxAnalyzer {
 
     private final KeyStructureAnalyze keyStructureAnalyze;
-    private final DataTypeAnalyzer dataTypeAnalyzer;
-    private Table table;
-    private Column column;
 
-    public ContentTableAnalyzer(Data data, Table table) {
+    public ContentTableAnalyzer(Data data) {
         super(data);
-        this.table = table;
-        this.column = new Column();
-        this.keyStructureAnalyze = new KeyStructureAnalyze(data);
-        this.dataTypeAnalyzer = new DataTypeAnalyzer(data, table, column);
+        this.keyStructureAnalyze = new KeyStructureAnalyze(data, new EndTableAnalyzer(data));
     }
 
     @Override
     public void analyze() {
         if (data.validateName(Kind.Identificador)){
-            column.addPart(data.currentToken());
+            data.newColumnAndPart();
             data.next();
+            DataTypeAnalyzer dataTypeAnalyzer = new DataTypeAnalyzer(data, new EndDeclaration(data), true);
             dataTypeAnalyzer.analyze();
         } else if (data.validateLexeme("CONSTRAINT")){
             data.next();

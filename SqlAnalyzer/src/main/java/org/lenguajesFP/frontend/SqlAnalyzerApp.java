@@ -7,11 +7,9 @@ package org.lenguajesFP.frontend;
 import java.io.StringReader;
 import java.util.List;
 import org.lenguajesFP.backend.Data;
-import org.lenguajesFP.backend.ErrorToken;
 import org.lenguajesFP.backend.Token;
 import org.lenguajesFP.backend.analyzers.StateAnalyzer;
 import org.lenguajesFP.backend.jflex.LexycalAnalyzer;
-
 
 /**
  *
@@ -85,7 +83,7 @@ public class SqlAnalyzerApp extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        inputjTxtAr.setBackground(new java.awt.Color(253, 251, 251));
+        inputjTxtAr.setBackground(new java.awt.Color(254, 254, 254));
         principaljScrllPn.setViewportView(inputjTxtAr);
 
         javax.swing.GroupLayout containerjPnlLayout = new javax.swing.GroupLayout(containerjPnl);
