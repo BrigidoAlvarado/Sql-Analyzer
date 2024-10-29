@@ -27,6 +27,8 @@ public class SelectorSentence extends SyntaxAnalyzer {
             joinAnalyzer.analyze();
         } else if (data.validateLexeme("WHERE")) {
             data.next();
+            WhereAnalyzer whereAnalyzer = new WhereAnalyzer(data);
+            whereAnalyzer.analyze();
         } else if (data.validateLexeme("GROUP")) {
             data.next();
         } else if (data.validateLexeme("ORDER")) {

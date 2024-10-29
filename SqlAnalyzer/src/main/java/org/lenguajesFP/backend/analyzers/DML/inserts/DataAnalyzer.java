@@ -15,6 +15,7 @@ public class DataAnalyzer extends SyntaxAnalyzer {
     @Override
     public void analyze() {
         if (data.isData()){
+            System.out.println("es un dato");
             data.next();
             finalStatus();
         } else if (data.validateLexeme("(")) {

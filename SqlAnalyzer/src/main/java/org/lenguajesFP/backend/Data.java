@@ -75,7 +75,7 @@ public class Data {
         Kind kind = currentToken().getName();
         return (kind == Kind.Aritmeticos ||
                 kind == Kind.Relacionales ||
-                kind == Kind.Logicos);
+                validateLexeme("OR"));
     }
 
     /////////////////////////////////////

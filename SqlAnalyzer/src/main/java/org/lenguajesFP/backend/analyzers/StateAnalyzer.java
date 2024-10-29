@@ -104,7 +104,7 @@ public class StateAnalyzer extends SyntaxAnalyzer {
     }
 
     private void errorState(){
-        errorStatus("Secuencia de token invalida");
+        errorStatus("Secuencia de token invalida !!");
         data.next();
         validateStates();
     }
