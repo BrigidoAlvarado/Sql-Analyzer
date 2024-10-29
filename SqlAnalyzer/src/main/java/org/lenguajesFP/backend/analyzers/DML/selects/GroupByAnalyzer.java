@@ -1,34 +1,38 @@
 package org.lenguajesFP.backend.analyzers.DML.selects;
 
 import org.lenguajesFP.backend.Data;
-import org.lenguajesFP.backend.analyzers.DML.inserts.DataAnalyzer;
 import org.lenguajesFP.backend.analyzers.SyntaxAnalyzer;
 import org.lenguajesFP.backend.enums.Kind;
 
-public class WhereIdentifier extends SyntaxAnalyzer {
+public class GroupByAnalyzer extends SyntaxAnalyzer {
 
-    private final EndSelectAnalyzer endSelectAnalyzer = new EndSelectAnalyzer(data);
+    private final EndSelectAnalyzer endSelectAnalyzer;
 
-    public WhereIdentifier(Data data) {
+    public GroupByAnalyzer(Data data) {
         super(data);
+        this.endSelectAnalyzer = new EndSelectAnalyzer(data);
     }
 
     @Override
     public void analyze() {
-        selectTypeStatus();
-    }
-
-    private void selectTypeStatus(){
-        if (data.validateName(Kind.Identificador)){
+        if (data.validateLexeme("BY")){
             data.next();
-            identifierTypeStatus();
+            identifierStatus();
         } else {
-            DataAnalyzer dataAnalyzer = new DataAnalyzer(data, endSelectAnalyzer);
-            dataAnalyzer.analyze();
+            errorStatus("Se esperaba un token BY");
         }
     }
 
-    private void  identifierTypeStatus(){
+    private void identifierStatus(){
+        if (data.validateName(Kind.Identificador)){
+            data.next();
+            finalStatus1();
+        } else {
+            errorStatus("Se esperaba un token Identificador");
+        }
+    }
+
+    private void finalStatus1(){
         if (data.validateLexeme(".")){
             data.next();
             lastIdentifierStatus();
@@ -42,8 +46,7 @@ public class WhereIdentifier extends SyntaxAnalyzer {
             data.next();
             endSelectAnalyzer.analyze();
         } else {
-            errorStatus("Se esperaba un token Identificador ");
+            errorStatus("Se esperaba un token Identificador");
         }
     }
-
 }

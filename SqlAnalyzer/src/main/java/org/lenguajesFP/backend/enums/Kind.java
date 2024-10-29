@@ -15,5 +15,6 @@ public enum Kind {
     Relacionales,
     Logicos,
     Comentario,
-    Espacio;
+    Espacio,
+    ERROR;
 }

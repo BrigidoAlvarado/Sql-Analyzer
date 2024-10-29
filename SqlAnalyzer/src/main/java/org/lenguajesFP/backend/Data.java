@@ -1,5 +1,6 @@
 package org.lenguajesFP.backend;
 
+import java.awt.Color;
 import org.lenguajesFP.backend.enums.Kind;
 import org.lenguajesFP.backend.tables.Column;
 import org.lenguajesFP.backend.tables.ModifiedTable;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Data {
+
     private final List<Token> tokens = new ArrayList<>();
     private final List<ErrorToken> errorsTokens = new ArrayList<>();
     private final List<SyntaxError> syntaxErrors = new ArrayList<>();
@@ -26,10 +28,11 @@ public class Data {
     private int alters = 0;
     private int drops = 0;
     private int index = 0;
+    private int stack = 0;
 
     public Data(List<Token> tokens) {
         for (Token token : tokens) {
-            if (token instanceof ErrorToken){
+            if (token instanceof ErrorToken) {
                 errorsTokens.add((ErrorToken) token);
             } else if (token.getName() != Kind.Comentario) {
                 this.tokens.add(token);
@@ -41,14 +44,35 @@ public class Data {
         }
     }
 
-    public boolean identifierIdentifier(){
-        if (validateName(Kind.Identificador)){
+    ////////////CONTROLADORES DE PILA//////////////
+    public boolean isParenthesis() {
+        if (validateLexeme("(")) {
+            stack++;
+        } else if (validateLexeme(")")) {
+            if (stack < 0) {
+                return false;
+            } else {
+                stack--;
+            }
+        } else {
+            return false;
+        }
+        System.out.println("pila: " + stack);
+        return true;
+    }
+
+    public boolean validateStackFinalState() {
+        return (stack == 0);
+    }
+
+    public boolean identifierIdentifier() {
+        if (validateName(Kind.Identificador)) {
             next();
-            if (validateLexeme(".")){
+            if (validateLexeme(".")) {
                 next();
-                if (validateName(Kind.Identificador)){
+                if (validateName(Kind.Identificador)) {
                     return true;
-                } else  {
+                } else {
                     addSyntaxError("Se esperaba un token Identificador");
                 }
             } else {
@@ -62,113 +86,136 @@ public class Data {
 
     //////////////////////
     /*Lectura de datos*/
-    public boolean isData(){
+    public boolean isData() {
         Kind kind = currentToken().getName();
-        return (kind == Kind.Entero ||
-                kind == Kind.Decimal ||
-                kind == Kind.Fecha ||
-                kind == Kind.Cadena ||
-                kind == Kind.Booleano);
+        return (kind == Kind.Entero
+                || kind == Kind.Decimal
+                || kind == Kind.Fecha
+                || kind == Kind.Cadena
+                || kind == Kind.Booleano);
     }
 
-    public boolean isOperator(){
+    public boolean isUpdateData() {
         Kind kind = currentToken().getName();
-        return (kind == Kind.Aritmeticos ||
-                kind == Kind.Relacionales ||
-                validateLexeme("OR"));
+        return (kind == Kind.Entero
+                || kind == Kind.Decimal
+                || kind == Kind.Fecha
+                || kind == Kind.Cadena
+                || kind == Kind.Booleano
+                || kind == Kind.Identificador);
+    }
+
+    public boolean isSpecialData() {
+        Kind kind = currentToken().getName();
+        return (kind == Kind.Entero
+                || kind == Kind.Decimal
+                || kind == Kind.Fecha
+                || kind == Kind.Cadena
+                || kind == Kind.Booleano);
+    }
+
+    public boolean isOperator() {
+        Kind kind = currentToken().getName();
+        return (kind == Kind.Aritmeticos
+                || kind == Kind.Relacionales
+                || validateLexeme("OR"));
     }
 
     /////////////////////////////////////
     /* Modificadores de Tabla*/
-    public void setTableKey(){
+    public void setTableKey() {
         table = new Table();
         table.setKey(tokens.get(index - 1));
     }
 
-    public void setTableName(){
+    public void setTableName() {
         table.setName(currentToken());
     }
 
-    public void saveTable(){
+    public void saveTable() {
         tables.add(table);
         table = new Table();
     }
 
     /*Modificadores de Column*/
-    public void newColumnAndPart(){
+    public void newColumnAndPart() {
         column = new Column();
         column.addPart(currentToken());
     }
 
-    public void saveColumn(){
+    public void saveColumn() {
         table.addColumn(column);
         column = new Column();
     }
 
-    public void addPartColumn(){
+    public void addPartColumn() {
         column.addPart(currentToken());
     }
 
     /* Modificadores de Tabla Modificada */
-    public void setModifiedTableKey(){
+    public void setModifiedTableKey() {
         modifiedTable = new ModifiedTable();
         modifiedTable.setKey(currentToken());
     }
 
-    public void saveModifiedTable(){
+    public void saveModifiedTable() {
         modifiedTables.add(modifiedTable);
         modifiedTable = new ModifiedTable();
     }
 
-    public void setModifiedTableName(){
+    public void setModifiedTableName() {
         modifiedTable.setName(currentToken());
     }
 
-    public void setModifiedTableColumn(){
+    public void setModifiedTableColumn() {
         modifiedTable.setColumn(currentToken());
     }
 
     //validar si el token es el esperado
-    public boolean validateLexeme(String lexeme){
+    public boolean validateLexeme(String lexeme) {
         return lexeme.equalsIgnoreCase(currentToken().getLexeme());
     }
 
     //valida si un tipo de token esta entre paretesis
-    public boolean validateName(Kind name){
+    public boolean validateName(Kind name) {
         return currentToken().getName() == name;
     }
 
     //valida si un tipo de lexema esta entre parentesis
-    public boolean betweenParenthesis(Kind kind){
-        if (validateLexeme("(")){
+    public boolean betweenParenthesis(Kind kind) {
+        if (validateLexeme("(")) {
             next();
-            if (validateName(kind)){
+            if (validateName(kind)) {
                 next();
-                if (validateLexeme(")")){
+                if (validateLexeme(")")) {
                     return true;
                 } else {
                     addSyntaxError("Se esperaba un token )");
                     return false;
                 }
             } else {
-                addSyntaxError("Se esperaba un token "+kind);
+                addSyntaxError("Se esperaba un token " + kind);
                 return false;
             }
-        } else{
+        } else {
             addSyntaxError("Se esperaba un token (");
             return false;
         }
     }
 
     //avanzar en la lectura del arreglo
-    public void next(){
-        System.out.println("avanzando desde: " + currentToken().getLexeme());
-        do {
-            index++;
-        } while (currentToken().getName() == Kind.Espacio || currentToken().getName() == Kind.Comentario);
+    public void next() {
+        try {
+            System.out.println("avanzando desde: " + currentToken().getLexeme());
+            do {
+                index++;
+            } while (currentToken().getName() == Kind.Espacio || currentToken().getName() == Kind.Comentario);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Se termino la lectura sintactica");
+        }
     }
 
-    public void back(){
+    public void back() {
         System.out.println("retrocediendo desde: " + currentToken().getLexeme());
         do {
             index--;
@@ -176,40 +223,56 @@ public class Data {
     }
 
     //aniadir el token actual a los errores
-    public void addSyntaxError(String description){
-        System.out.println("se encontro un error "+description);
+    public void addSyntaxError(String description) {
+        System.out.println("se encontro un error " + description);
+        stack = 0;
         syntaxErrors.add(new SyntaxError(currentToken(), description));
     }
 
     //obtener el token actual
-    public Token currentToken(){
-        return tokens.get(index);
+    public Token currentToken() {
+        try {
+            return tokens.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Se termino la lectura sintactica");
+            return new Token("eRrOr", Kind.ERROR, Color.yellow, -11, -11);
+        }
     }
 
     //AUMENTAR CONTADORES
-    public void increaseCreates(){
+    public void increaseCreates() {
         creates++;
         System.out.println("se encontro una produccion de CREATE");
     }
 
-    public void increaseAlters(){
+    public void increaseAlters() {
         System.out.println("Se encontro una produccion de ALTER");
         alters++;
     }
 
-    public void increaseDrops(){
+    public void increaseDrops() {
         System.out.println("se encontro una produccion de DROP");
         drops++;
     }
 
-    public void increaseSelects(){
+    public void increaseSelects() {
         selects++;
         System.out.println("Se encontro una produccion de SELECT");
     }
 
-    public void increaseInserts(){
+    public void increaseInserts() {
         System.out.println("se encontro un produccion de INSERT");
         inserts++;
+    }
+
+    public void increaseUpdates() {
+        System.out.println("se encontro un produccion de UPDATE");
+        updates++;
+    }
+
+    public void increaseDeletes() {
+        System.out.println("se encontro un produccion de DELETE");
+        deletes++;
     }
 
     //GETTERS DE LAS VARIABLES
@@ -233,7 +296,7 @@ public class Data {
         return deletes;
     }
 
-    public int getDrops(){
+    public int getDrops() {
         return drops;
     }
 

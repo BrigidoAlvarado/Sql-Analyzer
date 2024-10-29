@@ -7,32 +7,31 @@
         <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
             <Property name="mnemonic" type="int" value="102"/>
-            <Property name="text" type="java.lang.String" value="File"/>
+            <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="openMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="111"/>
-                <Property name="text" type="java.lang.String" value="Open"/>
+                <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="saveMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="115"/>
-                <Property name="text" type="java.lang.String" value="Save"/>
+                <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="saveAsMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="97"/>
-                <Property name="text" type="java.lang.String" value="Save As ..."/>
-                <Property name="displayedMnemonicIndex" type="int" value="5"/>
+                <Property name="text" type="java.lang.String" value="Guardar como.."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exitMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="120"/>
-                <Property name="text" type="java.lang.String" value="Exit"/>
+                <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitMenuItemActionPerformed"/>
@@ -40,54 +39,64 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="editMenu">
+        <Menu class="javax.swing.JMenu" name="ReportMenu">
           <Properties>
             <Property name="mnemonic" type="int" value="101"/>
-            <Property name="text" type="java.lang.String" value="Edit"/>
+            <Property name="text" type="java.lang.String" value="Reportes"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="cutMenuItem">
-              <Properties>
-                <Property name="mnemonic" type="int" value="116"/>
-                <Property name="text" type="java.lang.String" value="Cut"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="copyMenuItem">
-              <Properties>
-                <Property name="mnemonic" type="int" value="121"/>
-                <Property name="text" type="java.lang.String" value="Copy"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="pasteMenuItem">
-              <Properties>
-                <Property name="mnemonic" type="int" value="112"/>
-                <Property name="text" type="java.lang.String" value="Paste"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="deleteMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="TablesFoundMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="100"/>
-                <Property name="text" type="java.lang.String" value="Delete"/>
+                <Property name="text" type="java.lang.String" value="Tablas Encontradas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TablesFoundMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ModifiedTablesFounMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tablas Modificadas"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="OpertationsNumberMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Numero de Operaciones"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ErrorsTokenMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="121"/>
+                <Property name="text" type="java.lang.String" value="Errores Lexicos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ErrorsTokenMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="SyntaxErrorReportsMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="112"/>
+                <Property name="text" type="java.lang.String" value="Errores Sintacticos"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="helpMenu">
+        <Menu class="javax.swing.JMenu" name="graphicMenu">
           <Properties>
             <Property name="mnemonic" type="int" value="104"/>
-            <Property name="text" type="java.lang.String" value="Help"/>
+            <Property name="text" type="java.lang.String" value="Grafico"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="contentsMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="tablesGraphicMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="99"/>
-                <Property name="text" type="java.lang.String" value="Contents"/>
+                <Property name="text" type="java.lang.String" value="Tablas"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="modifiedTablesGraphicMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="97"/>
-                <Property name="text" type="java.lang.String" value="About"/>
+                <Property name="text" type="java.lang.String" value="Tablas Modificadas"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -113,7 +122,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-64,0,0,2,-64"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-64,0,0,2,-59"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -163,28 +172,57 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="compilejBttn1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="576" max="32767" attributes="0"/>
+                      <Component id="analyzejBttn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cleanjButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="rowjLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="columnJLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="340" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="compilejBttn1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="analyzejBttn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cleanjButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rowjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="columnJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="compilejBttn1">
+            <Component class="javax.swing.JButton" name="analyzejBttn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Compile"/>
+                <Property name="text" type="java.lang.String" value="Analizar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="compilejBttn1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analyzejBttnActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="cleanjButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Limpiar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cleanjButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="rowjLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="fila: 0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="columnJLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="columna: 0"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -192,7 +230,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextPane" name="inputjTxtAr">
+            <Component class="javax.swing.JTextPane" name="inputjTxtPn">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fe" green="fe" red="fe" type="rgb"/>

@@ -1,4 +1,4 @@
-package org.lenguajesFP.backend.analyzers.DML.selects;
+package org.lenguajesFP.backend.analyzers.DML.selects.where;
 
 import org.lenguajesFP.backend.Data;
 import org.lenguajesFP.backend.analyzers.SyntaxAnalyzer;
@@ -6,8 +6,11 @@ import org.lenguajesFP.backend.enums.Kind;
 
 public class EndRelationalOperation extends SyntaxAnalyzer {
 
-    public EndRelationalOperation(Data data) {
+    private final SyntaxAnalyzer endAnalyzer;
+
+    public EndRelationalOperation(Data data, SyntaxAnalyzer endAnalyzer) {
         super(data);
+        this.endAnalyzer = endAnalyzer;
     }
 
     @Override
@@ -47,8 +50,7 @@ public class EndRelationalOperation extends SyntaxAnalyzer {
     private void identifierStatus3(){
         if (data.identifierIdentifier()){
             data.next();
-            EndSelectAnalyzer endSelectAnalyzer = new EndSelectAnalyzer(data);
-            endSelectAnalyzer.analyze();
+            endAnalyzer.analyze();
         } else {
             errorStatus("Se esperaba un token Identificador");
         }

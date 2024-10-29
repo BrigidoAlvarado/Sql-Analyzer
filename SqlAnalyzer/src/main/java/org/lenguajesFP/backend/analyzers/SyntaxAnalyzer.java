@@ -9,7 +9,7 @@ public abstract class SyntaxAnalyzer {
         this.data = data;
     }
 
-    public abstract void analyze();
+    public abstract void analyze() ;
 
     protected void errorStatus(String description) {
         data.addSyntaxError(description);

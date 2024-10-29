@@ -1,20 +1,20 @@
-package org.lenguajesFP.backend.analyzers.DML.inserts;
+package org.lenguajesFP.backend.analyzers.updates;
 
 import org.lenguajesFP.backend.Data;
 import org.lenguajesFP.backend.analyzers.SyntaxAnalyzer;
 
-public class DataAnalyzer extends SyntaxAnalyzer {
+public class UpdateData extends SyntaxAnalyzer {
 
     private final SyntaxAnalyzer finalAnalyzer;
 
-    public DataAnalyzer(Data data, SyntaxAnalyzer finalAnalyzer) {
+    public UpdateData (Data data, SyntaxAnalyzer finalAnalyzer) {
         super(data);
         this.finalAnalyzer = finalAnalyzer;
     }
 
     @Override
     public void analyze() {
-        if (data.isData()){
+        if (data.isUpdateData()){
             data.next();
             finalStatus();
         } else if (data.validateLexeme("(")) {
@@ -33,13 +33,12 @@ public class DataAnalyzer extends SyntaxAnalyzer {
             data.next();
             openParenthesisStatus();
         } else {
-            System.out.println("finalizando el analizis de los datos");
             finalAnalyzer.analyze();
         }
     }
 
     private void openParenthesisStatus(){
-        if (data.isData()){
+        if (data.isUpdateData()){
             data.next();
             dataBetweenParenthesis();
         } else {
@@ -60,7 +59,7 @@ public class DataAnalyzer extends SyntaxAnalyzer {
     }
 
     private void operatorBetweenParenthesis(){
-        if (data.isData()){
+        if (data.isUpdateData()){
             data.next();
             dataBetweenParenthesis();
         } else {
@@ -69,7 +68,7 @@ public class DataAnalyzer extends SyntaxAnalyzer {
     }
 
     private void operatorStatus(){
-        if (data.isData()){
+        if (data.isUpdateData()){
             data.next();
             finalStatus();
         } else {

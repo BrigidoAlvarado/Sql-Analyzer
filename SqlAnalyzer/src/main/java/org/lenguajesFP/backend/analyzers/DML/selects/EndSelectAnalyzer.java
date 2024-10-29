@@ -13,8 +13,17 @@ public class EndSelectAnalyzer extends SyntaxAnalyzer {
     public void analyze() {
         if (data.validateLexeme(";")){
             data.increaseSelects();
-        } else  {
-            errorStatus("Se esperaba un token ;");
+        } else if (
+                data.validateLexeme("WHERE") ||
+                        data.validateLexeme("JOIN") ||
+                        data.validateLexeme("LIMIT")||
+                        data.validateLexeme("GROUP")||
+                        data.validateLexeme("ORDER")
+            ) {
+            SelectorSentence selectorSentence = new SelectorSentence(data);
+            selectorSentence.selectSentenceStatus();
+        } else {
+            errorStatus("Secuencia de token invalida se esperaba un token , o ; ");
         }
     }
 }

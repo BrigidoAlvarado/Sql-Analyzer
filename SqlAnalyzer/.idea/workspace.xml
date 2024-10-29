@@ -30,33 +30,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "select",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/brigidoalvarado/Documentos/proyecto-final-lenguajes/SqlAnalyzer",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;select&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/brigidoalvarado/Documentos/proyecto-final-lenguajes/SqlAnalyzer&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/org/lenguajesFP/backend/jflex" />
       <recent name="$PROJECT_DIR$/src/main/java/org/lenguajesFP/backend" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.lenguajesFP.backend.analyzers.DML.selects.where" />
       <recent name="org.lenguajesFP.backend.analyzers.creates.tableParts" />
       <recent name="org.lenguajesFP.backend.analyzers.structures" />
       <recent name="org.lenguajesFP.backend.analyzers.creates" />
       <recent name="org.lenguajesFP.backend.analyzers.creates.tables" />
-      <recent name="org.lenguajesFP.backend" />
     </key>
   </component>
   <component name="RunManager">
@@ -120,6 +120,9 @@
       <workItem from="1730057920800" duration="612000" />
       <workItem from="1730068099209" duration="6327000" />
       <workItem from="1730151709785" duration="6720000" />
+      <workItem from="1730178529731" duration="12346000" />
+      <workItem from="1730197157750" duration="151000" />
+      <workItem from="1730198940691" duration="601000" />
     </task>
     <servers />
   </component>

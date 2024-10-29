@@ -106,7 +106,7 @@ public class DataTypeAnalyzer extends SyntaxAnalyzer {
     }
 
     private void finalStatus(){
-        finalAnalyzer.analyze();
+        finalAnalyzer.analyzew();
     }
 
     private void adPart(){
