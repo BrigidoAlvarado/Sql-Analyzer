@@ -10,10 +10,10 @@ import java.awt.*;
 import java.util.List;
 
 public class DynamicTableFrame extends JFrame {
-    private JTable table;
+    private final JTable table;
 
-    public DynamicTableFrame(List<List<Object>> rows, List<String> columns) {
-        setTitle("Tabla Dinámica");
+    public DynamicTableFrame(List<List<Object>> rows, List<String> columns, String title) {
+        setTitle(title);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(true); // Permitir redimensionar la ventana
 
@@ -41,21 +41,6 @@ public class DynamicTableFrame extends JFrame {
         // Ajustar el tamaño de la ventana al contenido
         pack();
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
-    }
-
-    public static void main(String[] args) {
-        // Ejemplo de uso con datos de prueba
-        List<String> columns = List.of("Token", "Linea", "Columna", "Descripcion");
-        List<List<Object>> rows = List.of(
-                List.of("error1", 1, 5, "Error de sintaxis"),
-                List.of("error2", 2, 8, "Identificador no válido")
-        );
-
-        // Crear y mostrar la ventana
-        SwingUtilities.invokeLater(() -> {
-            DynamicTableFrame tableDialog = new DynamicTableFrame(rows, columns);
-            tableDialog.setVisible(true);
-        });
     }
 }
 

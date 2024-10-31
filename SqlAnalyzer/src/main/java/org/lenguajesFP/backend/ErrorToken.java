@@ -8,8 +8,8 @@ public class ErrorToken extends Token {
     public ErrorToken(String lexeme, Color color, int row, int column, String description){
         this.lexeme = lexeme;
         this.color = color;
-        this.row = row;
-        this.column = column;
+        this.row = row + 1;
+        this.column = column + 1;
         this.description = description;
     }
 

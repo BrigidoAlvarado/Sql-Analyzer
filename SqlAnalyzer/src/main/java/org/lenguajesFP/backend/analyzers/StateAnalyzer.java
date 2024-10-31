@@ -89,7 +89,6 @@ public class StateAnalyzer {
 
     private void validateFinal() throws SyntaxException{
         if (data.currentToken().getName() == Kind.ERROR) {
-            data.getSyntaxErrors().removeLast();
             System.out.println("La lectura sintactica ha finalizado");
             throw new SyntaxException("La lectura ha finalizado");
         }

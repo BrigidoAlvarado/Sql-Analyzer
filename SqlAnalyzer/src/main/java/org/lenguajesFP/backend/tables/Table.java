@@ -13,7 +13,14 @@ public class Table {
 
     @Override
     public String toString() {
-        return "nombre: "+ name +" \n columns: "+ columns;
+
+        String columnsString = "vacio\n";
+        for (Column column : columns) {
+            for ( Token toke: column.getParts()){
+                columnsString += toke.getLexeme();
+            }
+        }
+        return "nombre: "+ name +" \n columns: "+ columnsString;
     }
 
     public void reset(){

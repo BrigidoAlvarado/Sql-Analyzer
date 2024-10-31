@@ -40,12 +40,15 @@ public class AltersAnalyzer extends SyntaxAnalyzer {
 
     private void alterTypeStatus(){
         if (data.validateLexeme("ADD")){
+            data.setModifiedTableKind();
             data.next();
             alterAdd.analyze();
         } else if (data.validateLexeme("DROP")) {
+            data.setModifiedTableKind();
             data.next();
             columnStatus();
         } else if (data.validateLexeme("ALTER")) {
+            data.setModifiedTableKind();
             data.next();
             alterAlter.analyze();
         } else {

@@ -167,6 +167,11 @@ public class Data {
         modifiedTable.setName(currentToken());
     }
 
+
+    public void setModifiedTableKind(){
+        modifiedTable.setKind(currentToken());
+    }
+
     public void setModifiedTableColumn() {
         modifiedTable.setColumn(currentToken());
     }

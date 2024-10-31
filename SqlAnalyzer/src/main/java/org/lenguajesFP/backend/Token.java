@@ -22,8 +22,8 @@ public class Token {
         this.lexeme = lexeme;
         this.name = name;
         this.color = color;
-        this.row = row;
-        this.column = column;
+        this.row = row + 1;
+        this.column = column + 1;
     }
 
     public String getLexeme() {
